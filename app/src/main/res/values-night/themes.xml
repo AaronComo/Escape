@@ -1,0 +1,21 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Escape" parent="Theme.Material3.DayNight.NoActionBar">
+
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <!-- 状态栏自动取色, 需要在com.google.android.material.appbar.AppBarLayout中同时设置android:fitsSystemWindows="true" -->
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item> <!-- 适用于深色状态栏图标 -->
+
+
+        <!-- 底栏焦点 -->
+        <item name="colorOnSurfaceVariant">@color/material_dynamic_neutral_variant30</item>
+        <!-- 导航条颜色 -->
+        <item name="android:navigationBarColor">@color/material_dynamic_neutral30</item>
+    </style>
+</resources>

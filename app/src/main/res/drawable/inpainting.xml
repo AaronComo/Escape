@@ -1,0 +1,16 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- 画笔的手柄 -->
+    <path
+        android:fillColor="#000000"
+        android:pathData="M12,2C6.48,2 2,6.48 2,12v4.17L6.17,14H20V4C20,3.45 19.55,3 19,3H15V9L12,12L9,9V3H5C4.45,3 4,3.45 4,4V13.8L12,21.8L20,13.8V12C20,6.48 15.52,2 10,2Z" />
+
+    <!-- 画笔的笔头 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M15.5,10.5L10,15L4.5,10.5L10,6L15.5,10.5Z" />
+</vector>

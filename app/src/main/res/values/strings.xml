@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Escape</string>
+    <string name="title_home">主页</string>
+    <string name="title_dashboard">图库</string>
+    <string name="title_inpatienting">修复</string>
+    <string name="favorite">喜欢</string>
+    <string name="content_description_favorite">点击按钮喜欢</string>
+    <string name="edit">编辑</string>
+    <string name="content_description_search">点击以编辑</string>
+    <string name="more">更多</string>
+    <string name="content_description_more">点击查看更多</string>
+    <string name="status_title">当前状态</string>
+    <string name="status">请选择一张待修复的图片</string>
+    <string name="select_img">选择图片</string>
+    <string name="save_img">保存图片</string>
+</resources>
