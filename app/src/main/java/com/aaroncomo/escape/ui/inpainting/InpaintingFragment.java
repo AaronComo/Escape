@@ -34,6 +34,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -42,6 +45,8 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+import com.aaroncomo.escape.ui.inpainting.InpaintingViewModel;
+
 public class InpaintingFragment extends Fragment {
 
     private FragmentInpaintingBinding binding;
@@ -49,17 +54,22 @@ public class InpaintingFragment extends Fragment {
     private final String port = "8000";
     private static Uri selectedImgUri = null;
     public static final int CHOOSE_PHOTO = 2;
-    private String localFile = null, remoteFile = null, fileName = null;
+    private String localFile = null, response = null, fileName = null;
+    private static InpaintingViewModel viewModel;
     private final Handler handler = new Handler() {
         @Override
         public void handleMessage(@NonNull Message msg) {
             super.handleMessage(msg);
+            Object hint;
             Boolean type = false;
             if (msg.what == 100) {
                 type = true;
+                hint = ((String[]) msg.obj)[0];
+                response = ((String[]) msg.obj)[1];
+            } else {
+                hint = msg.obj;
             }
-            String hint = (String) msg.obj;
-            log(hint, type);
+            log((String) hint, type);
         }
     };
 
@@ -77,6 +87,9 @@ public class InpaintingFragment extends Fragment {
         binding.picture.setImageResource(R.drawable.default_img);
         binding.picture.setAdjustViewBounds(true);
 
+        // 实例化ViewModel并和Fragment绑定
+        viewModel = new ViewModelProvider(this).get(InpaintingViewModel.class);
+
         binding.selectPicture.setOnClickListener(v -> {
             // 动态申请文件读写权限
             if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -90,22 +103,12 @@ public class InpaintingFragment extends Fragment {
 
         // 开始修复按钮
         binding.extendedFab.setOnClickListener(v -> {
-//            Snackbar.make(binding.getRoot(), "你好!", Snackbar.LENGTH_LONG).show();
-//            binding.extendedFab.setText("Let's start!");
-//            binding.extendedFab.setIcon(null);
-
             // 检查是否选中图片, 选中则监听上传按钮
             if (selectedImgUri != null) {
-                byte[] byteArray;
-                Bitmap bitmap = null;
-                try {
-                    bitmap = BitmapFactory.decodeStream(super.getActivity().getContentResolver().openInputStream(selectedImgUri));
-                } catch (FileNotFoundException e) {
-                    throw new RuntimeException(e);
-                }
-                File file = convertBitmapToFile(bitmap);
+                // 新建一个png格式缓存图像
+                File file = viewModel.createCacheFile(selectedImgUri, super.getContext());
 
-
+                // 创建线程, 上传图像
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -125,11 +128,11 @@ public class InpaintingFragment extends Fragment {
 
                             @Override
                             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                                String[] obj = { "正在修复中...", response.body().string()};
                                 Message msg = new Message();
                                 msg.what = 100;
-                                msg.obj = "正在修复中...";
+                                msg.obj = obj;
                                 handler.sendMessage(msg);
-                                String ret = response.body().string();
                                 response.close();
                             }
                         });
@@ -138,18 +141,6 @@ public class InpaintingFragment extends Fragment {
             } else {
                 log("请选择一张图片", false);
             }
-
-//            String ret, url;
-//            url = "https://raw.githubusercontent.com/AaronComo/castle-game/main/README.md";
-//            try {
-//                ret = HttpUtils.getURL(url);
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            }
-//            System.out.println(ret);
-//            log(ret, true);
-//            Picasso.get().load("https://psc2.cf2.poecdn.net/b92e7aa2ffa1ee7c0414cb74597c3e7da43cda36/_next/static/media/chatGPTAvatar.04ed8443.png")
-//                    .into(binding.picture);
         });
 
         return root;
@@ -260,7 +251,7 @@ public class InpaintingFragment extends Fragment {
             File dstFile = new File("/storage/emulated/0/DCIM/".concat(fileName).replaceFirst(".png", "").concat("_generated.png"));
             boolean ret = file.renameTo(dstFile);
             if (ret) {
-                fileName = localFile = remoteFile = null;   // 清空数据
+                fileName = localFile = null;   // 清空数据
                 log("成功保存到系统相册", true);
             } else {
                 log("保存失败", true);
