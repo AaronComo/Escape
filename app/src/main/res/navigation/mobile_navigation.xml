@@ -13,9 +13,9 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.aaroncomo.escape.ui.dashboard.DashboardFragment"
+        android:name="com.aaroncomo.escape.ui.gallery.GalleryFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_gallery" />
 
     <fragment
         android:id="@+id/navigation_inpainting"

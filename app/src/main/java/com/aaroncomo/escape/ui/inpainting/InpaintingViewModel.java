@@ -1,5 +1,8 @@
 package com.aaroncomo.escape.ui.inpainting;
 
+import static com.aaroncomo.escape.HttpUtils.ip;
+import static com.aaroncomo.escape.HttpUtils.port;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,7 +13,6 @@ import android.os.Message;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
-import com.aaroncomo.escape.HttpUtils;
 
 import org.json.JSONObject;
 
@@ -28,10 +30,9 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+import com.aaroncomo.escape.HttpUtils;
 
 public class InpaintingViewModel extends ViewModel {
-    private final String ip = "192.168.234.19";
-    private final String port = "8000";
 
     public File createCacheFile(Uri uri, Context context) {
         Bitmap bitmap;

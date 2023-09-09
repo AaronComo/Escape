@@ -33,7 +33,7 @@
                 android:theme="@style/ThemeOverlay.MaterialComponents.ActionBar"
                 app:layout_collapseMode="pin"
                 app:menu="@menu/top_app_bar"
-                app:navigationIcon="@drawable/ic_dashboard_black_24dp"
+                app:navigationIcon="@drawable/ic_gallery_black_24dp"
                 app:title="@string/title_inpatienting" />
 
             <!--        </com.google.android.material.appbar.CollapsingToolbarLayout>-->

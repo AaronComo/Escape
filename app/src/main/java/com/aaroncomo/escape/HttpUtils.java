@@ -8,6 +8,9 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class HttpUtils {
+
+    public final static String ip = "192.168.234.19";
+    public final static String port = "8000";
     private static final OkHttpClient client = new OkHttpClient();
     private static String ret;
 
@@ -24,6 +27,14 @@ public class HttpUtils {
                 .post(requestBody)
                 .build();
         client.newCall(request).enqueue(callback);
+    }
+
+    public static Response POST(String url, RequestBody requestBody) throws IOException {
+        Request request = new Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .build();
+        return client.newCall(request).execute();
     }
 
     public static Response GET(String url) throws IOException {

@@ -9,7 +9,7 @@
 
 <!--    <item-->
 <!--        android:id="@+id/favorite"-->
-<!--        android:icon="@drawable/ic_dashboard_black_24dp"-->
+<!--        android:icon="@drawable/ic_gallery_black_24dp"-->
 <!--        android:title="@string/favorite"-->
 <!--        android:contentDescription="@string/content_description_favorite"-->
 <!--        app:showAsAction="ifRoom" />-->
