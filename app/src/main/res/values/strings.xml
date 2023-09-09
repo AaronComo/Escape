@@ -13,4 +13,6 @@
     <string name="status">请选择一张待修复的图片</string>
     <string name="select_img">选择图片</string>
     <string name="save_img">保存图片</string>
+    <string name="start">开始修复</string>
+    <string name="end">修复完成</string>
 </resources>
