@@ -32,23 +32,6 @@
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-<!--        <com.google.android.material.tabs.TabLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:tabMode="fixed">-->
-
-<!--            <com.google.android.material.tabs.TabItem-->
-<!--                android:id="@+id/tab_normal"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="@string/tab_normal"/>-->
-
-<!--            <com.google.android.material.tabs.TabItem-->
-<!--                android:id="@+id/tab_vip"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="@string/tab_vip"/>-->
-<!--        </com.google.android.material.tabs.TabLayout>-->
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -58,12 +41,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
         app:spanCount="2">
 
-
     </androidx.recyclerview.widget.RecyclerView>
-
 
 <!--    <androidx.core.widget.NestedScrollView-->
 <!--        android:layout_width="match_parent"-->

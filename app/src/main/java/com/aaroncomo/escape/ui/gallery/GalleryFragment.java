@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.aaroncomo.escape.databinding.FragmentGalleryBinding;
 
@@ -38,7 +39,7 @@ public class GalleryFragment extends Fragment {
             public void handleMessage(@NonNull Message msg) {
                 switch (msg.what) {
                     case 0x10:
-                        List<Card> cards = viewModel.getCardData((JSONObject) msg.obj, "vip");
+                        List<Card> cards = viewModel.getCardData((JSONObject) msg.obj, "normal");
                         binding.recyclerView.setAdapter(new CardAdapter(cards));
 
                     default:
@@ -56,9 +57,10 @@ public class GalleryFragment extends Fragment {
 
 
         // 设置RecyclerView的管理器和适配器
-        binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        binding.recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, 1));
 
         binding.recyclerView.setAdapter(new CardAdapter(new ArrayList<>()));
+
 
 //        binding.tabNormal.setOnClickListener(v -> {
 //            if (!tabNormalActivated) {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
@@ -20,14 +20,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="end"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginBottom="2dp">
 
                 <!-- Media -->
                 <ImageView
                     android:id="@+id/card_picture"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:scaleType="centerCrop" />
 
 
@@ -35,24 +35,37 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
+                    android:layout_gravity="center"
                     android:orientation="horizontal">
 
-                    <com.google.android.material.button.MaterialButton
+                    <CheckBox
                         android:id="@+id/like"
-                        style="@style/Widget.Material3.Button.IconButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        app:icon="@drawable/like"
-                        app:iconSize="30dp"
-                        android:gravity="center_vertical|center_horizontal"/>
+                        android:button="@drawable/like_button"
+                        style="@style/RedCheckbox"
+                        android:layout_gravity="center"/>
+
+
+<!--                    <com.google.android.material.button.MaterialButton-->
+
+<!--                        android:id="@+id/like"-->
+<!--                        style="@style/Widget.Material3.Button.IconButton"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        app:icon="@drawable/like"-->
+<!--                        app:iconSize="30dp"-->
+<!--                        android:layout_gravity="center_vertical|center_horizontal"/>-->
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/save"
+                        style="@style/Widget.Material3.Button.Icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/save"/>
+                        app:icon="@drawable/save"
+                        android:text="@string/save"
+                        android:layout_gravity="center_vertical|center_horizontal"
+                        app:iconSize="20dp"/>
                 </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>

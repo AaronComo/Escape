@@ -13,4 +13,8 @@
         <item name="cornerFamily">cut</item>
         <item name="cornerSize">8dp</item>
     </style>
+
+    <style name="RedCheckbox" parent="Widget.Material3.CompoundButton.CheckBox">
+        <item name="buttonTint">@color/red</item>
+    </style>
 </resources>
