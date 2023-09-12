@@ -1,5 +1,6 @@
 package com.aaroncomo.escape.ui.gallery;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -20,11 +21,13 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class GalleryFragment extends Fragment {
 
     private FragmentGalleryBinding binding;
+    private JSONObject allData;
     private static Boolean tabNormalActivated = false, tabVIPActivated = false;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -35,15 +38,31 @@ public class GalleryFragment extends Fragment {
         binding = FragmentGalleryBinding.inflate(inflater, container, false);
 
         Handler handler = new Handler(Looper.getMainLooper()) {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void handleMessage(@NonNull Message msg) {
-                switch (msg.what) {
-                    case 0x10:
-                        List<Card> cards = viewModel.getCardData((JSONObject) msg.obj, "normal");
-                        binding.recyclerView.setAdapter(new CardAdapter(cards));
+                // 初始化成功应答, 构建normal界面
+                if (msg.what == 0x10) {
+                    allData = (JSONObject) msg.obj;
+                    List<Card> cards = viewModel.getCardData(allData, "normal");
+                    binding.recyclerView.setAdapter(new CardAdapter(cards, this));
 
-                    default:
-                        break;
+                    // 设置Tab监听
+                    Objects.requireNonNull(binding.tabs.getTabAt(0)).view.setOnClickListener(v -> {
+                        CardAdapter adapter = (CardAdapter) binding.recyclerView.getAdapter();
+                        List<Card> c = viewModel.getCardData(allData, "normal");
+                        assert adapter != null;
+                        adapter.setData(c);
+                        adapter.notifyDataSetChanged();
+
+                    });
+                    Objects.requireNonNull(binding.tabs.getTabAt(1)).view.setOnClickListener(v -> {
+                        CardAdapter adapter = (CardAdapter) binding.recyclerView.getAdapter();
+                        List<Card> c = viewModel.getCardData(allData, "vip");
+                        assert adapter != null;
+                        adapter.setData(c);
+                        adapter.notifyDataSetChanged();
+                    });
                 }
             }
         };
@@ -55,21 +74,11 @@ public class GalleryFragment extends Fragment {
             e.printStackTrace();
         }
 
-
         // 设置RecyclerView的管理器和适配器
         binding.recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, 1));
+        binding.recyclerView.setAdapter(new CardAdapter(new ArrayList<>(), handler));
 
-        binding.recyclerView.setAdapter(new CardAdapter(new ArrayList<>()));
 
-
-//        binding.tabNormal.setOnClickListener(v -> {
-//            if (!tabNormalActivated) {
-//
-//            }
-//        });
-
-//        final TextView textView = binding.textDashboard;
-//        galleryViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return binding.getRoot();
     }
 

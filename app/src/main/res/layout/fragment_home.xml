@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fragment_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"   >
+    android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -15,28 +15,57 @@
             style="?attr/collapsingToolbarLayoutLargeStyle"
             android:layout_width="match_parent"
             android:layout_height="?attr/collapsingToolbarLayoutLargeSize"
-            app:titleEnabled="true"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:titleCollapseMode="scale"
-            >
+            app:titleEnabled="true">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/topAppBar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:title="@string/title_home"
-                app:menu="@menu/top_app_bar"
+                android:elevation="0dp"
+                android:background="@android:color/transparent"
                 android:theme="@style/ThemeOverlay.MaterialComponents.ActionBar"
                 app:layout_collapseMode="pin"
+                app:menu="@menu/top_app_bar"
                 app:navigationIcon="@drawable/ic_home_black_24dp"
-                android:elevation="0dp"/>
+                app:title="@string/title_home"
+
+                app:titleTextAppearance="?attr/textAppearanceTitleLarge" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.card.MaterialCardView
+            style="?attr/materialCardViewElevatedStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="400dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="-20dp"
+            android:backgroundTint="@color/white"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="10dp">
 
 
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

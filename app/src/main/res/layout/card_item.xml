@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,20 +15,29 @@
             style="?attr/materialCardViewFilledStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:cardCornerRadius="20dp"
             android:layout_margin="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginBottom="2dp">
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical">
 
                 <!-- Media -->
-                <ImageView
-                    android:id="@+id/card_picture"
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop" />
+                    android:layout_height="wrap_content"
+                    style="?attr/materialCardViewFilledStyle"
+                    android:layout_gravity="center"
+                    app:cardCornerRadius="20dp">
+
+                    <ImageView
+                        android:id="@+id/card_picture"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scaleType="centerCrop" />
+                </com.google.android.material.card.MaterialCardView>
 
 
                 <!-- Buttons -->
@@ -36,36 +45,26 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
                     android:orientation="horizontal">
 
                     <CheckBox
                         android:id="@+id/like"
+                        style="@style/RedCheckbox"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:button="@drawable/like_button"
-                        style="@style/RedCheckbox"
-                        android:layout_gravity="center"/>
-
-
-<!--                    <com.google.android.material.button.MaterialButton-->
-
-<!--                        android:id="@+id/like"-->
-<!--                        style="@style/Widget.Material3.Button.IconButton"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        app:icon="@drawable/like"-->
-<!--                        app:iconSize="30dp"-->
-<!--                        android:layout_gravity="center_vertical|center_horizontal"/>-->
+                        android:layout_gravity="center"
+                        android:button="@drawable/like_button" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/save"
-                        style="@style/Widget.Material3.Button.Icon"
+                        android:checkable="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:icon="@drawable/save"
-                        android:text="@string/save"
                         android:layout_gravity="center_vertical|center_horizontal"
-                        app:iconSize="20dp"/>
+                        android:text="@string/save"
+                        app:icon="@drawable/save_button"
+                        app:iconSize="20dp" />
                 </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>

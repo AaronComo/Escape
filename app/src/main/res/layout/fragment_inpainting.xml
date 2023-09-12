@@ -16,15 +16,6 @@
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true">
 
-            <!--        <com.google.android.material.appbar.CollapsingToolbarLayout-->
-            <!--            style="?attr/collapsingToolbarLayoutLargeStyle"-->
-            <!--            android:layout_width="match_parent"-->
-            <!--            android:layout_height="?attr/collapsingToolbarLayoutLargeSize"-->
-            <!--            app:titleEnabled="true"-->
-            <!--            app:layout_scrollFlags="scroll|exitUntilCollapsed"-->
-            <!--            app:titleCollapseMode="scale"-->
-            <!--            >-->
-
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/topAppBar"
                 android:layout_width="match_parent"
@@ -45,20 +36,28 @@
             style="?attr/materialCardViewFilledStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:cardCornerRadius="20dp"
             android:layout_margin="20dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="end"
                 android:orientation="vertical">
 
                 <!-- Media -->
-                <ImageView
-                    android:id="@+id/picture"
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:scaleType="centerCrop" />
+                    style="?attr/materialCardViewFilledStyle"
+                    android:layout_gravity="center"
+                    app:cardCornerRadius="20dp">
+
+                    <ImageView
+                        android:id="@+id/picture"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scaleType="centerCrop" />
+                </com.google.android.material.card.MaterialCardView>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -92,6 +91,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
+                    android:layout_gravity="end"
                     android:orientation="horizontal">
 
                     <com.google.android.material.button.MaterialButton

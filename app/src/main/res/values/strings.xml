@@ -16,6 +16,7 @@
     <string name="start">开始修复</string>
     <string name="end">修复完成</string>
     <string name="save">保存</string>
+    <string name="saved">已保存</string>
     <string name="tab_normal">普通用户</string>
     <string name="tab_vip">VIP</string>
 </resources>

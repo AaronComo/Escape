@@ -17,4 +17,5 @@
     <style name="RedCheckbox" parent="Widget.Material3.CompoundButton.CheckBox">
         <item name="buttonTint">@color/red</item>
     </style>
+
 </resources>
