@@ -2,7 +2,7 @@
     <string name="app_name">Escape</string>
     <string name="title_home">主页</string>
     <string name="title_dashboard">图库</string>
-    <string name="title_inpatienting">修复</string>
+    <string name="title_inpainting">修复</string>
     <string name="favorite">喜欢</string>
     <string name="content_description_favorite">点击按钮喜欢</string>
     <string name="edit">编辑</string>
@@ -17,6 +17,10 @@
     <string name="end">修复完成</string>
     <string name="save">保存</string>
     <string name="saved">已保存</string>
+    <string name="welcome">欢迎回来</string>
+    <string name="github">GitHub</string>
+    <string name="system">壁画修复系统</string>
     <string name="tab_normal">普通用户</string>
+    <string name="university">Wuhan University</string>
     <string name="tab_vip">VIP</string>
 </resources>

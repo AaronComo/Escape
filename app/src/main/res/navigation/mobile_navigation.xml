@@ -20,6 +20,6 @@
     <fragment
         android:id="@+id/navigation_inpainting"
         android:name="com.aaroncomo.escape.ui.inpainting.InpaintingFragment"
-        android:label="@string/title_inpatienting"
+        android:label="@string/title_inpainting"
         tools:layout="@layout/fragment_inpainting" />
 </navigation>

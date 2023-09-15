@@ -1,5 +1,6 @@
 package com.aaroncomo.escape.ui.gallery;
 
+import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
@@ -28,6 +29,7 @@ public class GalleryFragment extends Fragment {
 
     private FragmentGalleryBinding binding;
     private JSONObject allData;
+    private ObjectAnimator animator;
     private static Boolean tabNormalActivated = false, tabVIPActivated = false;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -46,6 +48,7 @@ public class GalleryFragment extends Fragment {
                     allData = (JSONObject) msg.obj;
                     List<Card> cards = viewModel.getCardData(allData, "normal");
                     binding.recyclerView.setAdapter(new CardAdapter(cards, this));
+                    animator.start();
 
                     // 设置Tab监听
                     Objects.requireNonNull(binding.tabs.getTabAt(0)).view.setOnClickListener(v -> {
@@ -54,6 +57,7 @@ public class GalleryFragment extends Fragment {
                         assert adapter != null;
                         adapter.setData(c);
                         adapter.notifyDataSetChanged();
+                        animator.start();
 
                     });
                     Objects.requireNonNull(binding.tabs.getTabAt(1)).view.setOnClickListener(v -> {
@@ -62,6 +66,7 @@ public class GalleryFragment extends Fragment {
                         assert adapter != null;
                         adapter.setData(c);
                         adapter.notifyDataSetChanged();
+                        animator.start();
                     });
                 }
             }
@@ -78,6 +83,8 @@ public class GalleryFragment extends Fragment {
         binding.recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, 1));
         binding.recyclerView.setAdapter(new CardAdapter(new ArrayList<>(), handler));
 
+        animator = ObjectAnimator.ofFloat(binding.recyclerView, "alpha", 0f, 1f);
+        animator.setDuration(1500);
 
         return binding.getRoot();
     }

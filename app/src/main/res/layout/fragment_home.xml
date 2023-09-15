@@ -6,66 +6,122 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true">
+    <!--    <com.google.android.material.appbar.AppBarLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:fitsSystemWindows="true">-->
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            style="?attr/collapsingToolbarLayoutLargeStyle"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/collapsingToolbarLayoutLargeSize"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:titleCollapseMode="scale"
-            app:titleEnabled="true">
+    <!--        <com.google.android.material.appbar.CollapsingToolbarLayout-->
+    <!--            style="?attr/collapsingToolbarLayoutLargeStyle"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="?attr/collapsingToolbarLayoutLargeSize"-->
+    <!--            app:layout_scrollFlags="scroll|exitUntilCollapsed"-->
+    <!--            app:titleCollapseMode="scale"-->
+    <!--            app:titleEnabled="true">-->
 
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/topAppBar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:elevation="0dp"
-                android:background="@android:color/transparent"
-                android:theme="@style/ThemeOverlay.MaterialComponents.ActionBar"
-                app:layout_collapseMode="pin"
-                app:menu="@menu/top_app_bar"
-                app:navigationIcon="@drawable/ic_home_black_24dp"
-                app:title="@string/title_home"
+    <!--            <com.google.android.material.appbar.MaterialToolbar-->
+    <!--                android:id="@+id/topAppBar"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="?attr/actionBarSize"-->
+    <!--                android:elevation="0dp"-->
+    <!--                android:background="@android:color/transparent"-->
+    <!--                android:theme="@style/ThemeOverlay.MaterialComponents.ActionBar"-->
+    <!--                app:layout_collapseMode="pin"-->
+    <!--                app:menu="@menu/top_app_bar"-->
+    <!--                app:navigationIcon="@drawable/ic_home_black_24dp"-->
+    <!--                app:title="@string/title_home"-->
 
-                app:titleTextAppearance="?attr/textAppearanceTitleLarge" />
+    <!--                app:titleTextAppearance="?attr/textAppearanceTitleLarge" />-->
 
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-    </com.google.android.material.appbar.AppBarLayout>
+    <!--        </com.google.android.material.appbar.CollapsingToolbarLayout>-->
+    <!--    </com.google.android.material.appbar.AppBarLayout>-->
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:visibility="visible">
 
-        <com.google.android.material.card.MaterialCardView
-            style="?attr/materialCardViewElevatedStyle"
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="100dp"
+            android:src="@drawable/logo"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="bottom"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="400dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="-20dp"
-            android:backgroundTint="@color/white"
-            app:cardCornerRadius="30dp"
-            app:cardElevation="10dp">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/logo">
 
-
-            <androidx.cardview.widget.CardView
+            <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/welcome"
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/system"
+                android:layout_marginTop="10dp"
+                android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+                android:textColor="@color/black"
+                android:textSize="40sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        </com.google.android.material.card.MaterialCardView>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottom_white_part"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="530dp"
+        android:orientation="vertical">
 
-    </LinearLayout>
+
+        <ImageView
+            android:id="@+id/home_tab"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/home"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/home_tab" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/github"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:layout_marginVertical="50dp"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        android:text="@string/github"
+        android:textAppearance="?attr/textAppearanceTitleMedium"
+        android:textColor="?attr/colorOnPrimary"
+        android:textStyle="bold"
+        app:backgroundTint="?attr/colorPrimary"
+        app:icon="@drawable/github"
+        app:iconTint="?attr/colorOnPrimary" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

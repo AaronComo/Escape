@@ -14,7 +14,7 @@
     <item
         android:id="@+id/navigation_inpainting"
         android:icon="@drawable/inpainting"
-        android:title="@string/title_inpatienting" />
+        android:title="@string/title_inpainting" />
 
 
 </menu>
