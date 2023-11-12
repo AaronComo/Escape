@@ -14,7 +14,7 @@
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/material_dynamic_secondary95"
+            android:background="@color/material_dynamic_neutral_variant90"
             android:fitsSystemWindows="true">
 
             <com.google.android.material.appbar.MaterialToolbar
@@ -35,24 +35,23 @@
             android:layout_height="match_parent">
 
             <com.google.android.material.card.MaterialCardView
-                style="?attr/materialCardViewElevatedStyle"
+                style="?attr/materialCardViewFilledStyle"
+                android:background="@color/material_dynamic_neutral_variant95"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="bottom"
-                android:layout_marginTop="400dp"
-                android:layout_marginBottom="-100dp"
-                android:backgroundTint="@color/white"
-                app:cardCornerRadius="80dp"
-                app:cardElevation="15dp" />
+                android:layout_marginTop="-100dp"
+                android:layout_marginBottom="200dp"
+                app:cardCornerRadius="60dp" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/inpainting_card"
-                style="?attr/materialCardViewElevatedStyle"
+                style="?attr/materialCardViewFilledStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 app:cardCornerRadius="20dp"
-                app:cardElevation="20dp">
+                app:cardElevation="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -65,6 +64,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:backgroundTint="?attr/colorPrimary"
                         app:cardCornerRadius="20dp">
 
                         <ImageView

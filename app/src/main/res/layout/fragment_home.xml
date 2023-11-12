@@ -1,127 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--    <com.google.android.material.appbar.AppBarLayout-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:fitsSystemWindows="true">-->
 
-    <!--        <com.google.android.material.appbar.CollapsingToolbarLayout-->
-    <!--            style="?attr/collapsingToolbarLayoutLargeStyle"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="?attr/collapsingToolbarLayoutLargeSize"-->
-    <!--            app:layout_scrollFlags="scroll|exitUntilCollapsed"-->
-    <!--            app:titleCollapseMode="scale"-->
-    <!--            app:titleEnabled="true">-->
-
-    <!--            <com.google.android.material.appbar.MaterialToolbar-->
-    <!--                android:id="@+id/topAppBar"-->
-    <!--                android:layout_width="match_parent"-->
-    <!--                android:layout_height="?attr/actionBarSize"-->
-    <!--                android:elevation="0dp"-->
-    <!--                android:background="@android:color/transparent"-->
-    <!--                android:theme="@style/ThemeOverlay.MaterialComponents.ActionBar"-->
-    <!--                app:layout_collapseMode="pin"-->
-    <!--                app:menu="@menu/top_app_bar"-->
-    <!--                app:navigationIcon="@drawable/ic_home_black_24dp"-->
-    <!--                app:title="@string/title_home"-->
-
-    <!--                app:titleTextAppearance="?attr/textAppearanceTitleLarge" />-->
-
-    <!--        </com.google.android.material.appbar.CollapsingToolbarLayout>-->
-    <!--    </com.google.android.material.appbar.AppBarLayout>-->
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:orientation="vertical"
-        android:visibility="visible">
+        android:layout_marginBottom="250dp">
 
-        <ImageView
-            android:id="@+id/logo"
-            android:layout_width="wrap_content"
-            android:layout_height="150dp"
-            android:layout_gravity="center"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/background"
+            style="?attr/materialCardViewFilledStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="-100dp"
+            android:layout_marginEnd="-80dp"
+            android:layout_marginBottom="80dp"
+            app:cardCornerRadius="70dp" />
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_home"
+            style="?attr/materialCardViewFilledStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="130dp"
             android:layout_marginTop="100dp"
-            android:src="@drawable/logo"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="40dp"
+            android:backgroundTint="?attr/colorPrimary"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="10dp">
+
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_gravity="top|end"
+                android:src="@drawable/logo"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:letterSpacing="0.1"
+                    android:text="@string/name1"
+                    android:textAppearance="?attr/textAppearanceTitleLarge"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:letterSpacing="0.15"
+                    android:text="@string/name2"
+                    android:textAppearance="?attr/textAppearanceHeadlineLarge"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+
+            <ImageView
+                android:id="@+id/picture"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_gravity="bottom|left"
+                android:layout_marginStart="-20dp"
+                android:layout_marginBottom="-6dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/home_picture" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="94dp"
+            android:text="@string/title_home_vertical"
+            android:textAppearance="?attr/textAppearanceHeadlineLarge"
+            android:textStyle="bold" />
+
+    </FrameLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:rotation="270"
+        android:text="@string/ABOUT"
+        android:textAppearance="?attr/textAppearanceBodyLarge"
+        android:textColor="?attr/colorPrimary"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/info"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/info"
+        app:layout_constraintTop_toTopOf="@id/info" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/info"
+        style="?attr/materialCardViewFilledStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="-10dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/container">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
-            android:gravity="center"
-            android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@id/logo">
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/welcome"
-                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-                android:textColor="@color/black"
-                android:textSize="30sp"
+                android:text="@string/about"
+                android:textAppearance="?attr/textAppearanceTitleLarge"
+                android:textColor="?attr/colorPrimary"
                 android:textStyle="bold" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/system"
                 android:layout_marginTop="10dp"
-                android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
-                android:textColor="@color/black"
-                android:textSize="40sp"
+                android:text="@string/team"
+                android:textAppearance="?attr/textAppearanceTitleMedium"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/university"
+                android:textAppearance="?attr/textAppearanceTitleMedium"
                 android:textStyle="bold" />
         </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/bottom_white_part"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="530dp"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-
-        <ImageView
-            android:id="@+id/home_tab"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/home"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="@color/white"
-            app:layout_constraintTop_toBottomOf="@id/home_tab" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/github"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center"
-        android:layout_marginVertical="50dp"
-        android:layout_marginBottom="@dimen/activity_horizontal_margin"
-        android:text="@string/github"
-        android:textAppearance="?attr/textAppearanceTitleMedium"
-        android:textColor="?attr/colorOnPrimary"
-        android:textStyle="bold"
-        app:backgroundTint="?attr/colorPrimary"
-        app:icon="@drawable/github"
-        app:iconTint="?attr/colorOnPrimary" />
-
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/github"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginVertical="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:backgroundTint="?attr/colorPrimary"
+            android:text="@string/github"
+            android:textAppearance="?attr/textAppearanceTitleMedium"
+            android:textColor="?attr/colorOnPrimary"
+            android:textStyle="bold"
+            app:icon="@drawable/github"
+            app:iconTint="?attr/colorOnPrimary" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

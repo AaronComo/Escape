@@ -14,7 +14,7 @@
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/material_dynamic_secondary95"
+            android:background="@color/material_dynamic_neutral_variant95"
             android:fitsSystemWindows="true">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -30,7 +30,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     android:elevation="0dp"
-                    android:theme="@style/ThemeOverlay.MaterialComponents.ActionBar"
+                    android:theme="@style/TitleBold"
                     app:layout_collapseMode="pin"
                     app:menu="@menu/top_app_bar"
                     app:navigationIcon="@drawable/ic_gallery_black_24dp"
@@ -42,18 +42,14 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <com.google.android.material.card.MaterialCardView
-            style="?attr/materialCardViewElevatedStyle"
+            style="?attr/materialCardViewFilledStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="bottom"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="-30dp"
-            android:layout_marginEnd="-10dp"
-            android:layout_marginStart="-10dp"
-            android:backgroundTint="@color/white"
+            android:layout_marginBottom="20dp"
             android:isScrollContainer="true"
-            app:cardCornerRadius="50dp"
-            app:cardElevation="15dp">
+            app:cardCornerRadius="50dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -63,7 +59,9 @@
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tabs"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:background="@color/material_dynamic_neutral_variant90"
+                    >
 
                     <com.google.android.material.tabs.TabItem
                         android:layout_width="wrap_content"

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
 
 import com.google.android.material.transition.*;
 
@@ -33,17 +34,25 @@ public class HomeFragment extends Fragment {
 
         // 创建ObjectAnimator对象，设置动画
         animator = ObjectAnimator.ofFloat(binding.container, "alpha", 0f, 1f);
+        animator.setInterpolator(new AccelerateDecelerateInterpolator());
         animator.setDuration(500);
         animator.start();
 
-        binding.bottomWhitePart.setY(1000);
-        animator = ObjectAnimator.ofFloat(binding.bottomWhitePart, "translationY", 0);
-        animator.setDuration(3000);
+        binding.cardHome.setX(1000);
+        animator = ObjectAnimator.ofFloat(binding.cardHome, "translationX", 0);
+        animator.setInterpolator(new AccelerateDecelerateInterpolator());
+        animator.setDuration(2000);
         animator.start();
 
-        animator = ObjectAnimator.ofFloat(binding.github, "alpha", 0f, 1f);
-        animator.setDuration(1500);
+        binding.background.setY(-1000);
+        animator = ObjectAnimator.ofFloat(binding.background, "translationY", 0);
+        animator.setInterpolator(new AccelerateDecelerateInterpolator());
+        animator.setDuration(2000);
         animator.start();
+//
+//        animator = ObjectAnimator.ofFloat(binding.github, "alpha", 0f, 1f);
+//        animator.setDuration(1500);
+//        animator.start();
 
         binding.github.setOnClickListener(v -> {
             String url = "https://github.com/aaroncomo";

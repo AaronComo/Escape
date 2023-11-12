@@ -9,7 +9,7 @@ import okhttp3.Response;
 
 public class HttpUtils {
 
-    public final static String ip = "10.201.98.168";
+    public final static String ip = "10.201.96.157";
     public final static String port = "8000";
     private static final OkHttpClient client = new OkHttpClient();
     private static String ret;

@@ -25,7 +25,7 @@
         <!-- 底栏焦点 -->
         <item name="colorOnSurfaceVariant">@color/material_dynamic_neutral_variant80</item>
         <!-- 导航条颜色 -->
-        <item name="android:navigationBarColor">@color/material_dynamic_neutral_variant95</item>
+<!--        <item name="android:navigationBarColor">@color/material_dynamic_neutral95</item>-->
 
     </style>
 </resources>

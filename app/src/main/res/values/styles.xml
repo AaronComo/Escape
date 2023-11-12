@@ -18,4 +18,9 @@
         <item name="buttonTint">@color/red</item>
     </style>
 
+    <style name="TitleBold" parent="ThemeOverlay.MaterialComponents.ActionBar">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAppearance">?attr/textAppearanceHeadlineLarge</item>
+    </style>
+
 </resources>

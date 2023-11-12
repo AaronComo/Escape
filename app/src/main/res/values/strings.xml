@@ -21,6 +21,14 @@
     <string name="github">GitHub</string>
     <string name="system">壁画修复系统</string>
     <string name="tab_normal">普通用户</string>
-    <string name="university">Wuhan University</string>
+    <string name="university">武汉大学 国家网络安全学院</string>
     <string name="tab_vip">VIP</string>
+    <string name="about">关于我们</string>
+    <string name="ABOUT">— ABOUT US —</string>
+    <string name="APP">— WELCOME —</string>
+    <string name="name1">艺境梦旅</string>
+    <string name="name2">壁画之韵</string>
+    <string name="developer">开发者：AaronComo</string>
+    <string name="team">团队：AISec</string>
+    <string name="title_home_vertical">主\n页</string>
 </resources>

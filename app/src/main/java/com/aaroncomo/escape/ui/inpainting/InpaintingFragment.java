@@ -1,5 +1,7 @@
 package com.aaroncomo.escape.ui.inpainting;
 
+import static com.aaroncomo.escape.R.drawable.place_holder;
+
 import android.Manifest;
 import android.animation.ObjectAnimator;
 import android.content.Context;
@@ -91,7 +93,7 @@ public class InpaintingFragment extends Fragment {
                         hint = ((String[]) msg.obj)[0];
                         response = ((String[]) msg.obj)[1];
                         imageViewAnimator.start();
-                        Picasso.get().load(response).placeholder(R.drawable.place_holder).into(binding.picture);
+                        Picasso.get().load(response).placeholder(place_holder).into(binding.picture);
 
                         // 监听保存图片按钮
                         binding.savePicture.setOnClickListener(v -> viewModel.saveImage(response, this));
@@ -188,7 +190,7 @@ public class InpaintingFragment extends Fragment {
 //                Bitmap bitmap = BitmapFactory.decodeStream(super.getActivity().getContentResolver().openInputStream(uri));
 //                binding.picture.setImageBitmap(bitmap);
             imageViewAnimator.start();
-            Picasso.get().load(selectedImgUri).placeholder(R.drawable.place_holder).into(binding.picture);
+            Picasso.get().load(selectedImgUri).placeholder(place_holder).into(binding.picture);
             log("图片读取成功, 点击最下方按钮开始修复", true);
         }
     }
