@@ -92,11 +92,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="45dp"
-            android:layout_marginTop="94dp"
+            android:layout_marginTop="130dp"
             android:text="@string/title_home_vertical"
             android:textAppearance="?attr/textAppearanceHeadlineLarge"
             android:textStyle="bold" />
 
+<!--        <com.google.android.material.card.MaterialCardView-->
+<!--            android:layout_width="100dp"-->
+<!--            android:layout_height="100dp"-->
+<!--            app:cardCornerRadius="20dp">-->
+
+<!--            <ImageView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:src="@drawable/avatar" />-->
+
+
+<!--        </com.google.android.material.card.MaterialCardView>-->
     </FrameLayout>
 
     <TextView

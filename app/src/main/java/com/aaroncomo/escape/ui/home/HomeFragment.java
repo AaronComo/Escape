@@ -1,6 +1,7 @@
 package com.aaroncomo.escape.ui.home;
 
 import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,16 +10,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
-import com.google.android.material.transition.*;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.transition.Transition;
-import androidx.transition.TransitionManager;
 
+import com.aaroncomo.escape.R;
 import com.aaroncomo.escape.databinding.FragmentHomeBinding;
-import com.google.android.material.snackbar.Snackbar;
+import com.aaroncomo.escape.ui.gallery.GalleryFragment;
+import com.aaroncomo.escape.ui.inpainting.InpaintingFragment;
+
 
 public class HomeFragment extends Fragment {
     private ObjectAnimator animator;
@@ -49,10 +51,6 @@ public class HomeFragment extends Fragment {
         animator.setInterpolator(new AccelerateDecelerateInterpolator());
         animator.setDuration(2000);
         animator.start();
-//
-//        animator = ObjectAnimator.ofFloat(binding.github, "alpha", 0f, 1f);
-//        animator.setDuration(1500);
-//        animator.start();
 
         binding.github.setOnClickListener(v -> {
             String url = "https://github.com/aaroncomo";
@@ -61,6 +59,17 @@ public class HomeFragment extends Fragment {
             startActivity(intent);
             binding.github.shrink();
         });
+
+//        binding.logo.setOnClickListener(v -> {
+//            FragmentManager fm = requireActivity().getSupportFragmentManager();
+//            FragmentTransaction transaction = fm.beginTransaction();
+//            transaction.replace(R.id.fragment_container, new UserPageFragment(), null);
+//
+////            transaction.hide(fm.getPrimaryNavigationFragment());
+//            transaction.addToBackStack(null);
+//            transaction.commit();
+//
+//        });
 
         return binding.getRoot();
 

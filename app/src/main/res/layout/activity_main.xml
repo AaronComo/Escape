@@ -12,6 +12,9 @@
         android:layout_height="match_parent">
 
         <!-- 页面容器, 三个fragment -->
+
+
+        <!--         导航栏 -->
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/nav_host_fragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
@@ -21,99 +24,23 @@
             app:defaultNavHost="true"
             app:layout_constraintBottom_toTopOf="@id/nav"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
 
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
             app:navGraph="@navigation/mobile_navigation" />
 
-
-        <!--         导航栏 -->
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/nav"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/material_dynamic_neutral_variant95"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:menu="@menu/bottom_nav_menu"
-            android:background="@color/material_dynamic_neutral_variant95"/>
+            app:menu="@menu/bottom_nav_menu" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-    <!--        style="@style/Widget.MaterialComponents.FloatingActionButton"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:src="@drawable/ic_home_black_24dp"-->
-
-    <!--        android:tint="@color/white"-->
-    <!--        android:visibility="visible"-->
-    <!--        app:layout_anchor="@id/app_bar"-->
-    <!--        app:maxImageSize="30dp"-->
-    <!--        tools:visibility="visible" />-->
-
-    <!--    <com.google.android.material.bottomappbar.BottomAppBar-->
-    <!--        android:id="@+id/app_bar"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="50dp"-->
-    <!--        android:layout_gravity="bottom"-->
-    <!--        android:visibility="visible"-->
-
-    <!--        app:fabCradleMargin="8dp"-->
-    <!--        app:fabCradleRoundedCornerRadius="50dp"-->
-    <!--        app:fabCradleVerticalOffset="1dp"-->
-    <!--        app:hideOnScroll="false"-->
-    <!--        app:menu="@menu/bottom_nav_menu">-->
-
-    <!--        <LinearLayout-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:orientation="horizontal"-->
-    <!--            android:baselineAligned="false">-->
-
-    <!--            <LinearLayout-->
-    <!--                android:layout_width="wrap_content"-->
-    <!--                android:layout_height="match_parent"-->
-    <!--                android:layout_weight="1"-->
-    <!--                android:gravity="center"-->
-    <!--                android:orientation="vertical">-->
-
-    <!--                <ImageView-->
-    <!--                    android:layout_width="wrap_content"-->
-    <!--                    android:layout_height="wrap_content"-->
-    <!--                    android:src="@drawable/ic_gallery_black_24dp"-->
-    <!--                    app:tint="?attr/colorSecondary" />-->
-
-    <!--                <TextView-->
-    <!--                    android:layout_width="wrap_content"-->
-    <!--                    android:layout_height="wrap_content"-->
-    <!--                    android:text="@string/title_dashboard"-->
-    <!--                    android:textColor="?attr/colorSecondary" />-->
-    <!--            </LinearLayout>-->
-
-    <!--            <LinearLayout-->
-    <!--                android:layout_width="wrap_content"-->
-    <!--                android:layout_height="match_parent"-->
-    <!--                android:layout_weight="1"-->
-    <!--                android:gravity="center"-->
-    <!--                android:orientation="vertical">-->
-
-    <!--                <ImageView-->
-    <!--                    android:layout_width="wrap_content"-->
-    <!--                    android:layout_height="wrap_content"-->
-    <!--                    android:src="@drawable/inpainting"-->
-    <!--                    app:tint="?attr/colorSecondary" />-->
-
-    <!--                <TextView-->
-    <!--                    android:layout_width="wrap_content"-->
-    <!--                    android:layout_height="wrap_content"-->
-    <!--                    android:text="@string/title_inpainting"-->
-    <!--                    android:textColor="?attr/colorSecondary" />-->
-    <!--            </LinearLayout>-->
-
-    <!--        </LinearLayout>-->
-
-
-    <!--    </com.google.android.material.bottomappbar.BottomAppBar>-->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -24,10 +24,12 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.aaroncomo.escape.R;
+import com.google.android.material.R.style;
 import com.aaroncomo.escape.databinding.FragmentInpaintingBinding;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.util.Objects;
 
 public class InpaintingFragment extends Fragment {
 
@@ -118,9 +120,9 @@ public class InpaintingFragment extends Fragment {
         // 选择图片按钮
         binding.selectPicture.setOnClickListener(v -> {
             // 动态申请文件读写权限
-            if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
                     != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(getActivity(), new String[]{
+                ActivityCompat.requestPermissions(requireActivity(), new String[]{
                         Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
             }
             // 选择图片时取消保存按钮监听
@@ -147,10 +149,10 @@ public class InpaintingFragment extends Fragment {
             binding.progressbar.show();
             log("正在上传中...", true);
 
-            Context context = getContext();
+//            Context context = getContext();
             new Thread(() -> {
                 // 新建一个png格式缓存图像
-                File file = viewModel.createCacheFile(selectedImgUri, context);
+                File file = viewModel.createCacheFile(selectedImgUri, requireContext());
                 viewModel.uploadImg(file, handler);
             }).start();
         } else {
@@ -161,7 +163,7 @@ public class InpaintingFragment extends Fragment {
 
     public void log(String message, Boolean type) {
         if (!type) {
-            binding.hint.setTextColor(ContextCompat.getColor(getContext(), R.color.red));
+            binding.hint.setTextColor(ContextCompat.getColor(requireContext(), R.color.red));
         } else {
             binding.hint.setTextAppearance(com.google.android.material.R.style.TextAppearance_Material3_BodyMedium);
         }

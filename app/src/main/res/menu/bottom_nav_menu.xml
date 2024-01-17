@@ -16,5 +16,9 @@
         android:icon="@drawable/inpainting"
         android:title="@string/title_inpainting" />
 
+    <item
+        android:id="@+id/navigation_userpage"
+        android:icon="@drawable/userpage"
+        android:title="@string/title_userpage" />
 
 </menu>

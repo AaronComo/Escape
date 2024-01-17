@@ -36,12 +36,12 @@
 
             <com.google.android.material.card.MaterialCardView
                 style="?attr/materialCardViewFilledStyle"
-                android:background="@color/material_dynamic_neutral_variant95"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="bottom"
                 android:layout_marginTop="-100dp"
                 android:layout_marginBottom="200dp"
+                android:background="@color/material_dynamic_neutral_variant95"
                 app:cardCornerRadius="60dp" />
 
             <com.google.android.material.card.MaterialCardView

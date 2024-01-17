@@ -22,4 +22,11 @@
         android:name="com.aaroncomo.escape.ui.inpainting.InpaintingFragment"
         android:label="@string/title_inpainting"
         tools:layout="@layout/fragment_inpainting" />
+
+    <fragment
+        android:id="@+id/navigation_userpage"
+        android:name="com.aaroncomo.escape.ui.userpage.UserPageFragment"
+        android:label="@string/title_userpage"
+        tools:layout="@layout/fragment_userpage" />
+
 </navigation>

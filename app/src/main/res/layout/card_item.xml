@@ -15,8 +15,8 @@
             style="?attr/materialCardViewFilledStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="20dp"
-            android:layout_margin="5dp">
+            android:layout_margin="5dp"
+            app:cardCornerRadius="20dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -26,9 +26,9 @@
 
                 <!-- Media -->
                 <com.google.android.material.card.MaterialCardView
+                    style="?attr/materialCardViewFilledStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="?attr/materialCardViewFilledStyle"
                     android:layout_gravity="center"
                     app:cardCornerRadius="20dp">
 
@@ -58,10 +58,10 @@
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/save"
-                        android:checkable="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical|center_horizontal"
+                        android:checkable="true"
                         android:text="@string/save"
                         app:icon="@drawable/save_button"
                         app:iconSize="20dp" />

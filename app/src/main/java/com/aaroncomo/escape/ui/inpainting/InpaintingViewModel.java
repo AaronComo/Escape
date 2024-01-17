@@ -17,12 +17,9 @@ import androidx.lifecycle.ViewModel;
 
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -34,8 +31,9 @@ import okhttp3.Response;
 import com.aaroncomo.escape.HttpUtils;
 import com.aaroncomo.escape.ImageUtils;
 
-public class InpaintingViewModel extends ViewModel {
+import static com.aaroncomo.escape.ui.userpage.UserPageFragment.username;
 
+public class InpaintingViewModel extends ViewModel {
     public File createCacheFile(Uri uri, Context context) {
         Bitmap bitmap;
         try {
@@ -52,11 +50,11 @@ public class InpaintingViewModel extends ViewModel {
     }
 
     public void uploadImg(File file, Handler handler) {
-
         // 创建线程, 上传图像
         new Thread(() -> {
             RequestBody requestBody = new MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
+                    .addFormDataPart("username", username)
                     .addFormDataPart("img", "uploadImg", RequestBody.create(file, MediaType.get("image/png")))
                     .build();
             HttpUtils.POST("http://" + ip + ":" + port + "/backend/upload/", requestBody, new Callback() {

@@ -14,7 +14,7 @@
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/material_dynamic_neutral_variant95"
+            android:background="@android:color/transparent"
             android:fitsSystemWindows="true">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -47,9 +47,9 @@
             android:layout_height="match_parent"
             android:layout_gravity="bottom"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="20dp"
+            android:backgroundTint="@android:color/transparent"
             android:isScrollContainer="true"
-            app:cardCornerRadius="50dp">
+            app:cardCornerRadius="40dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -60,8 +60,7 @@
                     android:id="@+id/tabs"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/material_dynamic_neutral_variant90"
-                    >
+                    android:background="@android:color/transparent">
 
                     <com.google.android.material.tabs.TabItem
                         android:layout_width="wrap_content"
