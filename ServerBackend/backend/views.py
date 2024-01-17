@@ -7,7 +7,10 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseForbidden
 import json
 import os
-from backend.forms import UploadForm, RequestForm
+from backend.forms import UploadForm, RequestForm, UserForm
+
+# 调试时将把IP始终设为127.0.0.1
+debug = False
 
 
 def get_inet_address():
@@ -25,6 +28,8 @@ def get_inet_address():
     else:
         print('shell命令执行出错, 报错信息如下:')
         print(result.stderr)
+    if debug:
+        ip = '127.0.0.1'
     return ip, port
 
 
@@ -37,6 +42,7 @@ def upload(request):
         af = UploadForm(request.POST, request.FILES)
         if af.is_valid():
             img = af.cleaned_data['img']
+            username = af.cleaned_data['username']
             name = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
             print(f'Handling upload image: {name}.png')
 
@@ -46,6 +52,13 @@ def upload(request):
                 "name": f'{name}.png',
                 "url": f'http://{ip}:{port}/static/upload/{name}.png'
             }
+
+            # 更新用户数据
+            data = json_read()
+            if not data or not data.get(username):
+                create_new_user(username, data)
+            data[username]["available_time"] -= 1
+            json_write(data)
             return HttpResponse(json.dumps(response))
         return HttpResponseForbidden('请求无效, 检查请求中的图像是否正确被加载')
     return HttpResponseForbidden('请使用POST请求.\n'
@@ -97,7 +110,7 @@ def model(request):
             time.sleep(2)
             pass
 
-            url = f"http://{ip}:{port}/static/test.png",
+            url = f"http://{ip}:{port}/static/return.png",
             return HttpResponse(url)
         return HttpResponseForbidden('生成失败')
     return HttpResponseForbidden('请使用POST请求')
@@ -132,3 +145,39 @@ def gallery(request):
         }
         return HttpResponse(json.dumps(response))
     return HttpResponseForbidden('请使用POST请求.')
+
+
+def get_vip_info(request):
+    if request.method == 'POST':
+        af = UserForm(request.POST)
+        if af.is_valid():
+            username = af.cleaned_data["username"]
+            data = json_read()
+            if not data.get(username):
+                create_new_user(username, data)
+                json_write(data)
+            return HttpResponse(json.dumps(data[username]))
+        return HttpResponseForbidden()
+
+
+def create_new_user(username, data):
+    data.update({
+        username: {
+            "vip_ttl": 0,
+            "uploaded": 0,
+            "available_time": 10,
+        }
+    })
+
+def json_read() -> dict:
+    """读取json数据"""
+    data = dict()
+    with open("static/user_data.json", "r") as f:
+        data = json.load(f)
+    return data
+
+
+def json_write(data):
+    """写入json数据"""
+    with open("static/user_data.json", "w") as f:
+        json.dump(data, f, indent=4, ensure_ascii=False)
