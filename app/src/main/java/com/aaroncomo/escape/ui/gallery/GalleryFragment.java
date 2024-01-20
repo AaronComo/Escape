@@ -9,15 +9,17 @@ import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.aaroncomo.escape.databinding.FragmentGalleryBinding;
+import com.aaroncomo.escape.ui.userpage.UserpageViewModel;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -30,7 +32,7 @@ public class GalleryFragment extends Fragment {
     private FragmentGalleryBinding binding;
     private JSONObject allData;
     private ObjectAnimator animator;
-    private static Boolean tabNormalActivated = false, tabVIPActivated = false;
+    private Boolean VIPStatus;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -43,31 +45,52 @@ public class GalleryFragment extends Fragment {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void handleMessage(@NonNull Message msg) {
-                // 初始化成功应答, 构建normal界面
-                if (msg.what == 0x10) {
-                    allData = (JSONObject) msg.obj;
-                    List<Card> cards = viewModel.getCardData(allData, "normal");
-                    binding.recyclerView.setAdapter(new CardAdapter(cards, this));
-                    animator.start();
-
-                    // 设置Tab监听
-                    Objects.requireNonNull(binding.tabs.getTabAt(0)).view.setOnClickListener(v -> {
-                        CardAdapter adapter = (CardAdapter) binding.recyclerView.getAdapter();
-                        List<Card> c = viewModel.getCardData(allData, "normal");
-                        assert adapter != null;
-                        adapter.setData(c);
-                        adapter.notifyDataSetChanged();
+                switch (msg.what) {
+                    case 0x0:   // 获取用户VIP数据
+                        JSONObject userData = (JSONObject) msg.obj;
+                        int vipTTL = 0;
+                        try {
+                            vipTTL = userData.getInt("vip_ttl");
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+                        VIPStatus = vipTTL > 0;
+                        break;
+                    case 0x1:   // 服务器连接失败
+                        Toast.makeText(requireContext(), (String) msg.obj, Toast.LENGTH_LONG).show();
+                        break;
+                    case 0x10:  // 初始化成功应答, 构建normal界面
+                        allData = (JSONObject) msg.obj;
+                        List<Card> cards = viewModel.getCardData(allData, "normal");
+                        binding.recyclerView.setAdapter(new CardAdapter(cards, this));
                         animator.start();
 
-                    });
-                    Objects.requireNonNull(binding.tabs.getTabAt(1)).view.setOnClickListener(v -> {
-                        CardAdapter adapter = (CardAdapter) binding.recyclerView.getAdapter();
-                        List<Card> c = viewModel.getCardData(allData, "vip");
-                        assert adapter != null;
-                        adapter.setData(c);
-                        adapter.notifyDataSetChanged();
-                        animator.start();
-                    });
+                        // 设置Tab监听
+                        Objects.requireNonNull(binding.tabs.getTabAt(0)).view.setOnClickListener(v -> {
+                            binding.noVip.setVisibility(View.INVISIBLE);
+                            CardAdapter adapter = (CardAdapter) binding.recyclerView.getAdapter();
+                            List<Card> c = viewModel.getCardData(allData, "normal");
+                            assert adapter != null;
+                            adapter.setData(c);
+                            adapter.notifyDataSetChanged();
+                            animator.start();
+
+                        });
+                        Objects.requireNonNull(binding.tabs.getTabAt(1)).view.setOnClickListener(v -> {
+                            CardAdapter adapter = (CardAdapter) binding.recyclerView.getAdapter();
+                            List<Card> c = new ArrayList<>();
+                            if (!VIPStatus) {
+                                binding.noVip.setVisibility(View.VISIBLE);
+                            } else {
+                                c = viewModel.getCardData(allData, "vip");
+                            }
+                            assert adapter != null;
+                            adapter.setData(c);
+                            adapter.notifyDataSetChanged();
+                            animator.start();
+                        });
+                    default:
+                        break;
                 }
             }
         };
@@ -85,6 +108,8 @@ public class GalleryFragment extends Fragment {
 
         animator = ObjectAnimator.ofFloat(binding.recyclerView, "alpha", 0f, 1f);
         animator.setDuration(1500);
+
+        UserpageViewModel.requestUserInfo("AaronComo", handler, "get");
 
         return binding.getRoot();
     }

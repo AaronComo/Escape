@@ -13,3 +13,6 @@
 .externalNativeBuild
 .cxx
 local.properties
+.idea/**
+app/src/main/res/drawable-v24/logo_bak.png
+app/src/main/res/layout/fragment_home_bak.xml

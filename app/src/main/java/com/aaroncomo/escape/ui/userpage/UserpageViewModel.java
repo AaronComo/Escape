@@ -23,12 +23,13 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class UserpageViewModel extends ViewModel {
-    public void getUserInfo(String username, Handler handler) {
+    public static void requestUserInfo(String username, Handler handler, String action) {
         Message msg = new Message();
         new Thread(() -> {
             RequestBody requestBody = new MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
                     .addFormDataPart("username", username)
+                    .addFormDataPart("action", action)
                     .build();
             HttpUtils.POST("http://" + ip + ":" + port + "/backend/vip/", requestBody, new Callback() {
                 @Override
@@ -42,14 +43,17 @@ public class UserpageViewModel extends ViewModel {
                 public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                     msg.what = 0x0;
                     try {
+                        assert response.body() != null;
                         msg.obj = new JSONObject(response.body().string());
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
                     }
                     handler.sendMessage(msg);
+                    response.close();
                 }
             });
         }).start();
     }
+
 
 }

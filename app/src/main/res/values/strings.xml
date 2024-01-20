@@ -11,7 +11,7 @@
     <string name="more">更多</string>
     <string name="content_description_more">点击查看更多</string>
     <string name="status_title">当前状态</string>
-    <string name="status">请选择一张待修复的图片</string>
+    <string name="status">请选择模式</string>
     <string name="select_img">选择图片</string>
     <string name="save_img">保存图片</string>
     <string name="start">开始修复</string>
@@ -19,11 +19,11 @@
     <string name="save">保存</string>
     <string name="saved">已保存</string>
     <string name="welcome">欢迎回来</string>
-    <string name="github">GitHub</string>
+    <string name="github">项目主页</string>
     <string name="system">壁画修复系统</string>
     <string name="tab_normal">普通用户</string>
     <string name="university">武汉大学 国家网络安全学院</string>
-    <string name="tab_vip">VIP</string>
+    <string name="tab_vip">高级会员</string>
     <string name="about">关于我们</string>
     <string name="ABOUT">— ABOUT US —</string>
     <string name="APP">— WELCOME —</string>
@@ -33,4 +33,7 @@
     <string name="team">团队：AISec</string>
     <string name="title_home_vertical">主\n页</string>
     <string name="username">AaronComo</string>
+    <string name="no_vip">订阅高级会员以访问</string>
+    <string name="buy_vip">订阅会员</string>
+    <string name="option">模式</string>
 </resources>

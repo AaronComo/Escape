@@ -12,14 +12,10 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.aaroncomo.escape.R;
 import com.aaroncomo.escape.databinding.FragmentHomeBinding;
-import com.aaroncomo.escape.ui.gallery.GalleryFragment;
-import com.aaroncomo.escape.ui.inpainting.InpaintingFragment;
 
 
 public class HomeFragment extends Fragment {
@@ -37,19 +33,19 @@ public class HomeFragment extends Fragment {
         // 创建ObjectAnimator对象，设置动画
         animator = ObjectAnimator.ofFloat(binding.container, "alpha", 0f, 1f);
         animator.setInterpolator(new AccelerateDecelerateInterpolator());
-        animator.setDuration(500);
+        animator.setDuration(300);
         animator.start();
 
         binding.cardHome.setX(1000);
         animator = ObjectAnimator.ofFloat(binding.cardHome, "translationX", 0);
         animator.setInterpolator(new AccelerateDecelerateInterpolator());
-        animator.setDuration(2000);
+        animator.setDuration(1300);
         animator.start();
 
         binding.background.setY(-1000);
         animator = ObjectAnimator.ofFloat(binding.background, "translationY", 0);
         animator.setInterpolator(new AccelerateDecelerateInterpolator());
-        animator.setDuration(2000);
+        animator.setDuration(1300);
         animator.start();
 
         binding.github.setOnClickListener(v -> {

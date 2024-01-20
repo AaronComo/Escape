@@ -108,20 +108,21 @@
         </LinearLayout>
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/extended_fab"
+            android:id="@+id/buy_vip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginEnd="30dp"
             android:layout_marginBottom="30dp"
             android:elevation="10dp"
-            android:text="购买VIP"
+            android:text="@string/buy_vip"
             android:textAppearance="?attr/textAppearanceTitleMedium"
             android:textColor="?attr/colorOnPrimary"
 
             android:textStyle="bold"
             app:backgroundTint="?attr/colorPrimary"
             app:icon="@drawable/buy_vip"
+            app:iconSize="20dp"
             app:iconTint="?attr/colorOnPrimary"
             app:layout_constraintBottom_toBottomOf="@id/fill"
             app:layout_constraintRight_toRightOf="@id/fill" />

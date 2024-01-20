@@ -1,7 +1,6 @@
 package com.aaroncomo.escape.ui.userpage;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -16,7 +15,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.aaroncomo.escape.databinding.FragmentUserpageBinding;
-import com.aaroncomo.escape.ui.inpainting.InpaintingViewModel;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -51,6 +49,7 @@ public class UserPageFragment extends Fragment {
                         binding.vipTtl.setText(String.format("VIP剩余: %d天", a));
                         binding.uploaded.setText(String.format("上传图片数: %d张", b));
                         binding.availableTime.setText(String.format("剩余修复次数: %d次", c));
+                        binding.buyVip.setOnClickListener(v -> UserpageViewModel.requestUserInfo(username, this, "update_vip_ttl"));
                         break;
                     case 0x1:
                         Toast.makeText(requireContext(), (String) msg.obj, Toast.LENGTH_LONG).show();
@@ -60,7 +59,7 @@ public class UserPageFragment extends Fragment {
                 }
             }
         };
-        viewModel.getUserInfo(username, handler);
+        UserpageViewModel.requestUserInfo(username, handler, "get");
         return binding.getRoot();
     }
 }
