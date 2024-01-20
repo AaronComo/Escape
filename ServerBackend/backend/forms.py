@@ -7,8 +7,10 @@ class UploadForm(forms.Form):
 
 
 class RequestForm(forms.Form):
-    name = forms.CharField()
+    filename = forms.CharField()
+    username = forms.CharField(max_length=20)
 
 
 class UserForm(forms.Form):
     username = forms.CharField()
+    action = forms.CharField()
