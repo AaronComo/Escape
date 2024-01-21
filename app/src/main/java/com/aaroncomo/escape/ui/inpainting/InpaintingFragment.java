@@ -104,8 +104,9 @@ public class InpaintingFragment extends Fragment {
 
                     // 后端返回
                     case 0x11:
+                        response = (String) msg.obj;
                         RequestCreator rc = action == 1
-                                ? Picasso.get().load(default_img) : Picasso.get().load((String) msg.obj);
+                                ? Picasso.get().load(default_img) : Picasso.get().load(response);
                         rc.noPlaceholder().into(binding.picture);
                         hint = String.format("%s完成", items[action]);
                         binding.extendedFab.setText((String) hint);
