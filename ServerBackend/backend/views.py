@@ -9,19 +9,17 @@ import json
 import os
 from backend.forms import UploadForm, RequestForm, UserForm
 
-# debug=True将把IP始终设为127.0.0.1
-# is_server=False将使用get_inet_address动态获取本机ip
-debug = False
-is_server = True
+# is_server=False将使用get_inet_address动态获取本机ip, 并设置端口8000
+is_server = False
 ip = '119.3.185.140'
 port = '8001'
 
 
 def get_inet_address():
-    """只在本地启动服务时使用"""
+    """只在本地测试时有用"""
     global ip, port
-    if debug:
-        return ip, port
+
+    port = '8000'
     result = subprocess.run('ifconfig | grep broadcast', shell=True, capture_output=True, text=True)
     if result.returncode == 0:
         # 匹配第一个ip地址
@@ -40,7 +38,8 @@ def get_inet_address():
 def upload(request):
     if request.method == 'POST':
         global ip, port
-        ip, port = ip, port if is_server else get_inet_address()
+        if not is_server:
+            ip, port = get_inet_address()
 
         # 处理上传
         af = UploadForm(request.POST, request.FILES)
@@ -71,19 +70,6 @@ def handle_uploaded_file(file, filename):
             destination.write(chunk)
 
 
-def test(request):
-    global ip, port
-    if request.method == 'POST':
-        ip, port = ip, port if is_server else get_inet_address()
-        response = {
-            "status": "success",
-            "image": f"http://{ip}:{port}/static/test.png",
-        }
-        return HttpResponse(json.dumps(response))
-    note = '使用POST方法请求此地址'
-    return HttpResponse(note)
-
-
 def test_error(request):
     if request.method == 'POST':
         response = {
@@ -104,7 +90,8 @@ def model(request):
         if af.is_valid():
             filename = af.cleaned_data['filename']
             username = af.cleaned_data['username']
-            url, hit = get_return_url(filename)
+            action = af.cleaned_data['action']
+            style = af.cleaned_data['style']
 
             # 更新用户数据
             data = json_read()
@@ -113,8 +100,13 @@ def model(request):
             data[username]["available_time"] -= 1
             json_write(data)
 
-            # 调用模型执行, 把结果保存在static/generate/{filename}
-            img_path = f'static/upload/{filename}'
+            url, hit = None, False
+            if action == "0":  # 修复
+                # 调用模型执行, 把结果保存在static/generate/{filename}
+                img_path = f'static/upload/{filename}'
+                url, hit = get_return_url(filename)
+            else:  # 合成
+                url = f'http://{ip}:{port}/static/synthesis/{filename[:-4]}_style_{style}.jpg'
             time.sleep(2)
             pass
 
@@ -125,7 +117,8 @@ def model(request):
 
 def get_return_url(filename):
     global ip, port
-    ip, port = ip, port if is_server else get_inet_address()
+    if not is_server:
+        ip, port = get_inet_address()
     cache = set(os.listdir("./static/generate"))
     cache_name = filename[filename.find("_") + 1:]  # 去掉用户名
     if cache_name in cache:
@@ -142,7 +135,8 @@ def wrap_all_file(path):
     列出给定路径下的所有文件, 并将其转为链接
     """
     global ip, port
-    ip, port = ip, port if is_server else get_inet_address()
+    if not is_server:
+        ip, port = get_inet_address()
     files = os.listdir(path)
     prefixed_dict = {name: f'http://{ip}:{port}/{path}/{name}' for name in files if not name.endswith('.DS_Store')}
     return prefixed_dict
