@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +17,16 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.aaroncomo.escape.databinding.FragmentUserpageBinding;
+import com.aaroncomo.escape.utils.HttpUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Objects;
+
 public class UserPageFragment extends Fragment {
     private FragmentUserpageBinding binding;
+    private Boolean hide = true;
     public static String username = "AaronComo";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -60,6 +66,26 @@ public class UserPageFragment extends Fragment {
             }
         };
         UserpageViewModel.requestUserInfo(username, handler, "get");
+
+        // 动态修改ip, port
+        binding.submit.setOnClickListener(v -> {
+            HttpUtils.ip = Objects.requireNonNull(binding.editIp.getText()).toString();
+            HttpUtils.port = Objects.requireNonNull(binding.editPort.getText()).toString();
+        });
+
+        binding.avatar.setOnClickListener(v -> {
+            if (hide) {
+                binding.submit.setVisibility(View.VISIBLE);
+                binding.ip.setVisibility(View.VISIBLE);
+                binding.port.setVisibility(View.VISIBLE);
+            } else {
+                binding.submit.setVisibility(View.INVISIBLE);
+                binding.ip.setVisibility(View.INVISIBLE);
+                binding.port.setVisibility(View.INVISIBLE);
+            }
+            hide ^= true;
+
+        });
         return binding.getRoot();
     }
 }
