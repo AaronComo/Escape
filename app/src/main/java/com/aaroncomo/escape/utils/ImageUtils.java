@@ -1,4 +1,4 @@
-package com.aaroncomo.escape;
+package com.aaroncomo.escape.utils;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

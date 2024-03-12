@@ -12,20 +12,9 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">true</item> <!-- 适用于深色状态栏图标 -->
 
-        <!-- Primary brand color. -->
-<!--        <item name="colorPrimary">@color/material_dynamic_primary40</item>-->
-<!--        <item name="colorPrimaryVariant">@color/material_dynamic_primary30</item>-->
-<!--        <item name="colorOnPrimary">@color/white</item>-->
-<!--        &lt;!&ndash; Secondary brand color. &ndash;&gt;-->
-<!--        <item name="colorSecondary">@color/material_dynamic_secondary40</item>-->
-<!--        <item name="colorSecondaryVariant">@color/material_dynamic_secondary30</item>-->
-<!--        <item name="colorOnSecondary">@color/white</item>-->
-<!--        <item name="colorSecondaryContainer">@color/material_dynamic_secondary90</item>-->
-<!--        <item name="colorOnSecondaryContainer">@color/material_dynamic_secondary10</item>-->
         <!-- 底栏焦点 -->
         <item name="colorOnSurfaceVariant">@color/material_dynamic_neutral_variant80</item>
-        <!-- 导航条颜色 -->
-<!--        <item name="android:navigationBarColor">@color/material_dynamic_neutral95</item>-->
 
+        <item name="bottomSheetDragHandleStyle">@style/Widget.MaterialComponents.BottomSheet.DragHandle</item>
     </style>
 </resources>

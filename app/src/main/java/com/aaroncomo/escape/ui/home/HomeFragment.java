@@ -1,7 +1,6 @@
 package com.aaroncomo.escape.ui.home;
 
 import android.animation.ObjectAnimator;
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.aaroncomo.escape.R;
 import com.aaroncomo.escape.databinding.FragmentHomeBinding;
 
 
@@ -55,17 +53,6 @@ public class HomeFragment extends Fragment {
             startActivity(intent);
             binding.github.shrink();
         });
-
-//        binding.logo.setOnClickListener(v -> {
-//            FragmentManager fm = requireActivity().getSupportFragmentManager();
-//            FragmentTransaction transaction = fm.beginTransaction();
-//            transaction.replace(R.id.fragment_container, new UserPageFragment(), null);
-//
-////            transaction.hide(fm.getPrimaryNavigationFragment());
-//            transaction.addToBackStack(null);
-//            transaction.commit();
-//
-//        });
 
         return binding.getRoot();
 

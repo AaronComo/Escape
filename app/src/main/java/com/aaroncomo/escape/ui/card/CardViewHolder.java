@@ -1,4 +1,4 @@
-package com.aaroncomo.escape.ui.gallery;
+package com.aaroncomo.escape.ui.card;
 
 import android.view.View;
 import android.widget.Button;

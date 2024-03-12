@@ -6,10 +6,10 @@ import android.os.Message;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
-import com.aaroncomo.escape.HttpUtils;
+import com.aaroncomo.escape.utils.HttpUtils;
 
-import static com.aaroncomo.escape.HttpUtils.ip;
-import static com.aaroncomo.escape.HttpUtils.port;
+import static com.aaroncomo.escape.utils.HttpUtils.ip;
+import static com.aaroncomo.escape.utils.HttpUtils.port;
 
 import org.json.JSONException;
 import org.json.JSONObject;

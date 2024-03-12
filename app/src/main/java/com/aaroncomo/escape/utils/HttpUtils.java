@@ -1,4 +1,4 @@
-package com.aaroncomo.escape;
+package com.aaroncomo.escape.utils;
 
 import java.io.IOException;
 
@@ -9,8 +9,8 @@ import okhttp3.Response;
 
 public class HttpUtils {
 
-    public final static String ip = "119.3.185.140";
-    public final static String port = "8002";
+    public static String ip = "10.201.99.137";
+    public static String port = "8000";
     private static final OkHttpClient client = new OkHttpClient();
     private static String ret;
 
@@ -42,5 +42,10 @@ public class HttpUtils {
                 .url(url)
                 .build();
         return client.newCall(request).execute();
+    }
+
+    public void initNetwork(String ip, String port) {
+        HttpUtils.ip = ip;
+        HttpUtils.port = port;
     }
 }

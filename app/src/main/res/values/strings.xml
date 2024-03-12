@@ -36,4 +36,5 @@
     <string name="no_vip">订阅高级会员以访问</string>
     <string name="buy_vip">订阅会员</string>
     <string name="option">模式</string>
+    <string name="sheet_title">请选择一个喜欢的风格</string>
 </resources>

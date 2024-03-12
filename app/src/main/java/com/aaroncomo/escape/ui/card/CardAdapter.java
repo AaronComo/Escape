@@ -1,10 +1,11 @@
-package com.aaroncomo.escape.ui.gallery;
+package com.aaroncomo.escape.ui.card;
 
 import android.annotation.SuppressLint;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -14,35 +15,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.aaroncomo.escape.R;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.squareup.picasso.Picasso;
-import com.aaroncomo.escape.ImageUtils;
+import com.aaroncomo.escape.utils.ImageUtils;
 
 import java.util.List;
 
 
-class Card {
-    private String imageURL;
-    public Boolean saved = false;
-
-    Card(String imageURL) {
-        this.imageURL = imageURL;
-    }
-
-    public String getImageURL() {
-        return imageURL;
-    }
-}
-
-
 public class CardAdapter extends RecyclerView.Adapter<CardViewHolder> {
-    private List<Card> cardList;
+    private List<CardItem> cardList;
     private Handler handler;
 
-    public CardAdapter(List<Card> cardList, Handler handler) {
+    public CardAdapter(List<CardItem> cardList, Handler handler) {
         this.cardList = cardList;
         this.handler = handler;
     }
 
-    public void setData(List<Card> cardList) {
+    public void setData(List<CardItem> cardList) {
         this.cardList = cardList;
     }
 
@@ -59,7 +46,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardViewHolder> {
     @Override
     // 处理数据
     public void onBindViewHolder(@NonNull CardViewHolder holder, int position) {
-        Card card = cardList.get(position);
+        CardItem card = cardList.get(position);
         Picasso.get().load(card.getImageURL()).into(holder.imageView);
 
         // 重置按钮
@@ -80,13 +67,22 @@ public class CardAdapter extends RecyclerView.Adapter<CardViewHolder> {
 
         // 点击弹出大图
         holder.imageView.setOnClickListener(v -> {
+            // 创建一个正方形ImageView TODO: 没正
+            ImageView imageView = new ImageView(v.getContext());
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            imageView.setLayoutParams(layoutParams);
+            Picasso.get().load(card.getImageURL()).into(imageView);
+
+            // 创建对话框包裹ImageView
             MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(v.getContext());
-            ImageView largeImageView = new ImageView(v.getContext());
-            Picasso.get().load(card.getImageURL()).into(largeImageView);
-            builder.setView(largeImageView).setTitle("大图");
-            builder.setPositiveButton("关闭", null);
+            builder.setView(imageView);
             AlertDialog dialog = builder.create();
             dialog.show();
+            final WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
+            dialog.getWindow().setAttributes(params);
+
         });
     }
 

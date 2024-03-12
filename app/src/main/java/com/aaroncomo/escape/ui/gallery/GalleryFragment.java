@@ -17,6 +17,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.aaroncomo.escape.databinding.FragmentGalleryBinding;
+import com.aaroncomo.escape.ui.card.CardItem;
+import com.aaroncomo.escape.ui.card.CardAdapter;
 import com.aaroncomo.escape.ui.userpage.UserpageViewModel;
 
 import org.json.JSONException;
@@ -61,7 +63,7 @@ public class GalleryFragment extends Fragment {
                         break;
                     case 0x10:  // 初始化成功应答, 构建normal界面
                         allData = (JSONObject) msg.obj;
-                        List<Card> cards = viewModel.getCardData(allData, "normal");
+                        List<CardItem> cards = viewModel.getCardData(allData, "normal");
                         binding.recyclerView.setAdapter(new CardAdapter(cards, this));
                         animator.start();
 
@@ -69,7 +71,7 @@ public class GalleryFragment extends Fragment {
                         Objects.requireNonNull(binding.tabs.getTabAt(0)).view.setOnClickListener(v -> {
                             binding.noVip.setVisibility(View.INVISIBLE);
                             CardAdapter adapter = (CardAdapter) binding.recyclerView.getAdapter();
-                            List<Card> c = viewModel.getCardData(allData, "normal");
+                            List<CardItem> c = viewModel.getCardData(allData, "normal");
                             assert adapter != null;
                             adapter.setData(c);
                             adapter.notifyDataSetChanged();
@@ -78,7 +80,7 @@ public class GalleryFragment extends Fragment {
                         });
                         Objects.requireNonNull(binding.tabs.getTabAt(1)).view.setOnClickListener(v -> {
                             CardAdapter adapter = (CardAdapter) binding.recyclerView.getAdapter();
-                            List<Card> c = new ArrayList<>();
+                            List<CardItem> c = new ArrayList<>();
                             if (!VIPStatus) {
                                 binding.noVip.setVisibility(View.VISIBLE);
                             } else {

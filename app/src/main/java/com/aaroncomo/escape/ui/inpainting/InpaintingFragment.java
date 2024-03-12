@@ -1,13 +1,10 @@
 package com.aaroncomo.escape.ui.inpainting;
 
-import static com.aaroncomo.escape.R.drawable.default_img;
-import static com.aaroncomo.escape.R.drawable.place_holder;
+import java.io.File;
 
 import android.Manifest;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
-import android.content.ContentUris;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -17,15 +14,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.provider.DocumentsContract;
-import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -35,22 +29,25 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.aaroncomo.escape.R;
 import com.aaroncomo.escape.databinding.FragmentInpaintingBinding;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.RequestCreator;
 
-import java.io.File;
-import java.util.Objects;
+import static com.aaroncomo.escape.R.drawable.place_holder;
+
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.squareup.picasso.Picasso;
+
 
 public class InpaintingFragment extends Fragment {
 
     private FragmentInpaintingBinding binding;
-    private static Uri selectedImgUri = null;
+    private static Uri selectedImgUri;
     private static String fileName;
     public static final int CHOOSE_PHOTO = 2;
     private Boolean running = false;
     private ObjectAnimator textViewAnimator, imageViewAnimator;
+    private BottomSheetBehavior<View> bottomSheetBehavior;
     private String response = null;
-    private String[] items = {"修复", "上传"};
+    private int style = -1;
+    private String[] items = {"修复", "合成"};
     private int action;
 
 
@@ -61,7 +58,7 @@ public class InpaintingFragment extends Fragment {
         InpaintingViewModel viewModel =
                 new ViewModelProvider(this).get(InpaintingViewModel.class);
 
-        // 绑定ui组件
+        // 绑定binding
         binding = FragmentInpaintingBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
@@ -69,6 +66,7 @@ public class InpaintingFragment extends Fragment {
         binding.picture.setImageResource(R.drawable.default_img);
         binding.picture.setAdjustViewBounds(true);
         binding.extendedFab.shrink();
+        binding.selectPicture.setText("选择图片");
 
         // 创建ObjectAnimator对象，设置TextView、ImageView的动画属性
         textViewAnimator = ObjectAnimator.ofFloat(binding.hint, "alpha", 0f, 1f);
@@ -77,6 +75,8 @@ public class InpaintingFragment extends Fragment {
         imageViewAnimator = ObjectAnimator.ofFloat(binding.picture, "alpha", 0f, 1f);
         imageViewAnimator.setDuration(1000);
         imageViewAnimator.start();
+
+        selectedImgUri = null;
 
         // 使用Looper参数构造Handler, 使得Handler与特定线程的消息队列关联, 避免内存泄漏
         Handler handler = new Handler(Looper.getMainLooper()) {
@@ -99,15 +99,13 @@ public class InpaintingFragment extends Fragment {
                         response = (String) msg.obj;
 
                         // 启动模型生成
-                        viewModel.startModel(response, this, action);
+                        viewModel.startModel(response, this, action, style);
                         break;
 
                     // 后端返回
                     case 0x11:
                         response = (String) msg.obj;
-                        RequestCreator rc = action == 1
-                                ? Picasso.get().load(default_img) : Picasso.get().load(response);
-                        rc.noPlaceholder().into(binding.picture);
+                        Picasso.get().load(response).noPlaceholder().into(binding.picture);
                         hint = String.format("%s完成", items[action]);
                         binding.extendedFab.setText((String) hint);
                         binding.progressbar.hide();
@@ -131,27 +129,33 @@ public class InpaintingFragment extends Fragment {
                     // 菜单选择
                     case 0x13:
                         // 开始修复按钮
-                        binding.extendedFab.setOnClickListener(v -> startRepair(viewModel, this));
+                        binding.extendedFab.setOnClickListener(v -> startRepairOrSynthesis(viewModel, this));
                         action = (int) msg.obj;
                         binding.extendedFab.setText(String.format("开始%s", items[action]));
                         binding.extendedFab.setText(String.format("开始%s", items[action]));
                         binding.extendedFab.extend();
                         hint = String.format("请选择一张待%s的图片", items[action]);
                         type = true;
+                        binding.selectPicture.setOnClickListener(v -> selectImage());
 
                         // 选择图片按钮
-                        binding.selectPicture.setOnClickListener(v -> {
-                            // 动态申请文件读写权限
-                            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
-                                    != PackageManager.PERMISSION_GRANTED) {
-                                ActivityCompat.requestPermissions(requireActivity(), new String[]{
-                                        Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
-                            }
-                            // 选择图片时取消保存按钮监听
-                            binding.savePicture.setOnClickListener(null);
-                            running = false;
-                            openAlbum();
-                        });
+                        if (action == 1) {
+                            // 展开风格菜单在onResume()中进行
+                            binding.selectPicture.setText("选择图像和风格");
+                            binding.selectPicture.setOnClickListener(v -> selectImage());
+                        } else {
+                            binding.selectPicture.setText("选择图片");
+                            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+                            binding.selectPicture.setOnClickListener(v -> selectImage());
+                        }
+                        break;
+
+                    // 选择的风格
+                    case 0x14:
+                        style = (int) msg.obj;
+                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+                        type = true;
+                        hint = String.format("点击最下方按钮开始%s", items[action]);
                         break;
 
                     // 出错
@@ -164,12 +168,8 @@ public class InpaintingFragment extends Fragment {
             }
         };
 
-        // 创建适配器
-        ArrayAdapter<String>  adapter = new ArrayAdapter<>(
-                requireContext(), android.R.layout.simple_list_item_activated_1, items);
-        AutoCompleteTextView menu = binding.menu;
-        menu.setAdapter(adapter);   // 用适配器数据设置下拉菜单
-        menu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        binding.menu.setSimpleItems(items);
+        binding.menu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Message msg = new Message();
@@ -178,11 +178,36 @@ public class InpaintingFragment extends Fragment {
                 handler.sendMessage(msg);
             }
         });
+
+        // 初始化风格菜单RecycleView, 设置FrameLayout管理对象
+        viewModel.initList(binding.bottomSheet, getResources(), requireActivity().getPackageName(), handler);
+        FrameLayout bottomSheetLayout = binding.standardBottomSheet;
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+
         return root;
     }
 
+    private void selectImage() {
+        // 动态申请文件读写权限
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(requireActivity(), new String[]{
+                    Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+        }
+        // 选择图片时取消保存按钮监听
+        binding.savePicture.setOnClickListener(null);
+        running = false;
+        openAlbum();
+    }
 
-    public void startRepair(InpaintingViewModel viewModel, Handler handler) {
+    /**
+     * Extended Floating Button的监听, 包含上传、启动模型
+     *
+     * @param viewModel viewModel
+     * @param handler   消息处理
+     */
+    public void startRepairOrSynthesis(InpaintingViewModel viewModel, Handler handler) {
         if (running) return;
         running = true;
         // 检查是否选中图片, 选中则监听上传按钮
@@ -226,6 +251,7 @@ public class InpaintingFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (data == null) {
             log("没有选择图像", false);
+            String a = getResources().getResourceName(R.drawable.style_0);
             binding.picture.setImageResource(R.drawable.default_img);
         } else {
             selectedImgUri = data.getData();
@@ -239,13 +265,34 @@ public class InpaintingFragment extends Fragment {
                 fileName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
                 cursor.close();
             }
-            log(String.format("点击最下方按钮开始%s", items[action]), true);
         }
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        binding = null;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (selectedImgUri == null) {   // 没选图片
+            // 由于选择图像返回后会调用这个方法, 因此根据uri判断是否展开菜单
+            binding.menu.setText(null);
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+        } else {    // 选了图片
+            if (action == 1) {  // 合成
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                log("请选择一个壁画风格", true);
+            } else {
+                log(String.format("点击最下方按钮开始%s", items[action]), true);
+            }
+            binding.extendedFab.setText(String.format("开始%s", items[action]));
+        }
     }
 }
