@@ -10,8 +10,8 @@ import os
 from backend.forms import UploadForm, RequestForm, UserForm
 
 # is_server=False将使用get_inet_address动态获取本机ip, 并设置端口8000
-is_server = False
-ip = '119.3.185.140'
+is_server = True
+ip = '114.116.195.47'
 port = '8001'
 
 
@@ -96,7 +96,7 @@ def model(request):
             # 更新用户数据
             data = json_read()
             if not data or not data.get(username):
-                create_new_user(username, data)
+                data = create_new_user(username, data)
             data[username]["available_time"] -= 1
             json_write(data)
 
@@ -106,7 +106,7 @@ def model(request):
                 img_path = f'static/upload/{filename}'
                 url, hit = get_return_url(filename)
             else:  # 合成
-                url = f'http://{ip}:{port}/static/synthesis/{filename[:-4]}_style_{style}.jpg'
+                url = f'http://{ip}:{port}/static/synthesis/{filename[:-4]}_stylized_{style}.jpg'
             time.sleep(2)
             pass
 
@@ -163,7 +163,7 @@ def gallery(request):
     return HttpResponseForbidden('请使用POST请求.')
 
 
-def get_vip_info(request):
+def vip_info(request):
     if request.method == 'POST':
         af = UserForm(request.POST)
         if af.is_valid():
@@ -171,15 +171,16 @@ def get_vip_info(request):
             action = af.cleaned_data["action"]
             data = json_read()
             if not data.get(username):
-                create_new_user(username, data)
-                json_write(data)
+                data = create_new_user(username, data)
             if action.find("update") != -1:  # 更新VIP
                 idx = action.find("_")
                 action = action[idx + 1:]
                 data[username][action] += 1
                 if action == "vip_ttl":
                     data[username]["available_time"] += 100
-                json_write(data)
+            elif action.find("reset") != -1:    # 重置
+                data = create_new_user(username, data)
+            json_write(data)
             return HttpResponse(json.dumps(data[username]))
         return HttpResponseForbidden()
 
@@ -192,6 +193,7 @@ def create_new_user(username, data):
             "available_time": 10,
         }
     })
+    return data
 
 
 def json_read() -> dict:
@@ -199,6 +201,7 @@ def json_read() -> dict:
     data = dict()
     with open("static/user_data.json", "r") as f:
         data = json.load(f)
+        f.close()
     return data
 
 
@@ -206,3 +209,4 @@ def json_write(data):
     """写入json数据"""
     with open("static/user_data.json", "w") as f:
         json.dump(data, f, indent=4, ensure_ascii=False)
+        f.close()
