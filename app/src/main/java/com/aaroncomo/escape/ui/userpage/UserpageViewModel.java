@@ -23,6 +23,13 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class UserpageViewModel extends ViewModel {
+    /**
+     * 更新/获取vip信息
+     * @apiNote  目标端口: /backend/vip/
+     * @param username 用户名
+     * @param handler 消息处理器
+     *  @param action "reset":重置操作 "update_your_target":更新your_target项目
+     */
     public static void requestUserInfo(String username, Handler handler, String action) {
         Message msg = new Message();
         new Thread(() -> {

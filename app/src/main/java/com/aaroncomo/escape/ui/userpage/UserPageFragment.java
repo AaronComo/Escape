@@ -34,8 +34,6 @@ public class UserPageFragment extends Fragment {
 
         binding = FragmentUserpageBinding.inflate(inflater, container, false);
 
-        UserpageViewModel viewModel =
-                new ViewModelProvider(this).get(UserpageViewModel.class);
         Handler handler = new Handler(Looper.getMainLooper()) {
             @SuppressLint("DefaultLocale")
             @Override
@@ -55,7 +53,9 @@ public class UserPageFragment extends Fragment {
                         binding.vipTtl.setText(String.format("VIP剩余: %d天", a));
                         binding.uploaded.setText(String.format("上传图片数: %d张", b));
                         binding.availableTime.setText(String.format("剩余修复次数: %d次", c));
-                        binding.buyVip.setOnClickListener(v -> UserpageViewModel.requestUserInfo(username, this, "update_vip_ttl"));
+                        binding.buyVip.setOnClickListener(v -> UserpageViewModel.requestUserInfo(
+                                username, this, "update_vip_ttl"
+                        ));
                         break;
                     case 0x1:
                         Toast.makeText(requireContext(), (String) msg.obj, Toast.LENGTH_LONG).show();
@@ -73,6 +73,7 @@ public class UserPageFragment extends Fragment {
             HttpUtils.port = Objects.requireNonNull(binding.editPort.getText()).toString();
         });
 
+        // 显示/隐藏ip和端口设置
         binding.avatar.setOnClickListener(v -> {
             if (hide) {
                 binding.submit.setVisibility(View.VISIBLE);
@@ -84,8 +85,11 @@ public class UserPageFragment extends Fragment {
                 binding.port.setVisibility(View.INVISIBLE);
             }
             hide ^= true;
-
         });
+
+        binding.username.setOnClickListener(v -> UserpageViewModel.requestUserInfo(
+                username, handler, "reset"
+        ));
         return binding.getRoot();
     }
 }
