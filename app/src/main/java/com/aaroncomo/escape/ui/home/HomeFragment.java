@@ -47,7 +47,7 @@ public class HomeFragment extends Fragment {
         animator.start();
 
         binding.github.setOnClickListener(v -> {
-            String url = "https://github.com/aaroncomo";
+            String url = "https://github.com/aaroncomo/escape";
             Uri webpage = Uri.parse(url);
             Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
             startActivity(intent);
