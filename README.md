@@ -22,7 +22,3 @@
 
 
 
-## 后端
-
-后端接口详见 [ServerBackend/README.md](ServerBackend/README.md).
-
